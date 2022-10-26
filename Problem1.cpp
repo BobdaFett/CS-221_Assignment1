@@ -6,6 +6,7 @@
 #include "Purse.h"
 using namespace std;
 using Coin = Purse::Coin;
+using enum Purse::coinType;
 
 int compareQuarters(const void *a, const void *b);
 int compareDimes(const void *a, const void *b);
@@ -13,8 +14,11 @@ int compareDimes(const void *a, const void *b);
 int main() {
     // This is where the Purse pointers will be sorted
 
-    Coin nickel;
+    multiset<Coin> test;
+    Purse::coinType type = NICKEL;
+    Coin nickel = Coin(type);
 
+    test.insert(test.begin(), nickel);
     Purse first = Purse();
 
 

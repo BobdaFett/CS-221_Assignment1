@@ -1,5 +1,5 @@
 //
-// Created by lvas4 on 10/18/2022.
+// Created by Lucas Vas on 10/18/2022.
 //
 
 #include "Purse.h"
@@ -9,7 +9,23 @@
 struct Purse::Coin {
     using enum Purse::coinType;
     coinType name;
-    int coinValue;
+    double coinValue;
+    explicit Coin(coinType name) : name(name) {
+        switch (this->name) {
+            case QUARTER:
+                coinValue = .25;
+                break;
+            case DIME:
+                coinValue = .10;
+                break;
+            case NICKEL:
+                coinValue = .05;
+                break;
+            case PENNY:
+                coinValue = .01;
+                break;
+        }
+    }
 };
 
 Purse::Purse(const std::multiset<Coin>& ms) {
@@ -17,8 +33,8 @@ Purse::Purse(const std::multiset<Coin>& ms) {
 }
 
 void Purse::add(const std::multiset<Coin>& multiset) {
-    for(const auto & iter : multiset) {
-        switch(iter.name) {
+    for (const auto & iter : multiset) {
+        switch (iter.name) {
             case Coin::QUARTER:
                 addQuarters(1);
                 break;

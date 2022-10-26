@@ -1,5 +1,5 @@
 //
-// Created by lvas4 on 10/18/2022.
+// Created by Lucas Vas on 10/18/2022.
 //
 
 #ifndef CS_221_ASSIGNMENT1_PURSE_H
@@ -9,7 +9,7 @@
 
 class Purse {
 public:
-    enum coinType {QUARTER, DIME, NICKEL, PENNY};
+    typedef enum coinType {QUARTER, DIME, NICKEL, PENNY};
     struct Coin;
     Purse(const std::multiset<Coin>& ms);
     void add(const std::multiset<Purse::Coin>& multiset);
