@@ -3,4 +3,4 @@ project(CS_221_Assignment1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(CS_221_Assignment1 Problem1.cpp Purse.h Purse.cpp)
+add_executable(CS_221_Assignment1 list.cpp list.h listmain.cpp)
