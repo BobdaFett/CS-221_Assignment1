@@ -11,7 +11,6 @@
 
 class Iterator {
 public:
-    // TODO Figure out why this doesn't work.
     Iterator(List::Node *pNode, List::Node *pNode1);
 
     List::Node* get();
