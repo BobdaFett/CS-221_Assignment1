@@ -8,13 +8,6 @@
 #include "Iterator.h"
 using namespace std;
 
-// Constructor
-List::List () {
-   first = nullptr;
-   last = nullptr;
-}
-
-// Destructor
 List::~List () {
     Node *next_node;
 
@@ -26,7 +19,6 @@ List::~List () {
     delete last;
 }
 
-// Insert at front of list
 void List::frontInsert (int value) {
     Node *new_node;
 
@@ -36,15 +28,20 @@ void List::frontInsert (int value) {
     first = new_node;
 }
 
-// Insert at rear of list
 void List::rearInsert (int value) {
-    Node *new_node, *current;
+    Node *new_node;
 
     new_node = new Node;
     new_node->data = value;
     new_node->next = nullptr;
-    last->next = new_node;
-    last = new_node;
+
+    if (first == nullptr && last == nullptr) { // If there are no values in the list
+        last = new_node;
+        first = new_node;
+    } else {
+        last->next = new_node;
+        last = new_node;
+    }
 }
 
 int List::frontDelete() {
@@ -89,7 +86,7 @@ int List::rearDelete2() {
 int List::length() const {
 	int len = 0;
 	Node* current = first;
-	while (current != last){
+	while (current != nullptr){
 		len++;
 		current = current->next;
 	}
@@ -128,7 +125,7 @@ void List::del(Iterator i) {
 }
 
 // Print the list
-ostream& operator << (ostream& out, List& l) {
+ostream& operator<<(ostream& out, List& l) {
 	List::Node* current = l.first;
 
 	while (current != nullptr) {
