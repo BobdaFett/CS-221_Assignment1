@@ -9,7 +9,6 @@ using namespace std;
 
 int main ()
 {
-    list<int>::iterator temp;
     List l;
 
     cout << "List created." << endl;

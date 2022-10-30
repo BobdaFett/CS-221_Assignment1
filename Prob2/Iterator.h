@@ -2,6 +2,8 @@
 // Created by lvas4 on 10/29/2022.
 //
 
+
+
 #ifndef CS_221_ASSIGNMENT1_ITERATOR_H
 #define CS_221_ASSIGNMENT1_ITERATOR_H
 
@@ -10,20 +12,20 @@
 class Iterator {
 public:
     // TODO Figure out why this doesn't work.
-    Iterator(List::Node *pNode, List::Node *pNode1) : current(pNode), previous(pNode1) {};
+    Iterator(List::Node *pNode, List::Node *pNode1);
 
     List::Node* get();
     void next();
     void prev();
     bool equals(List::Node a, List::Node b);
 
-    Iterator operator++(int) {
-        i.next();
-        return *this;
+    int operator++(int) {
+        next();
+        return current->data;
     };
-    Iterator operator--(int) {
-        i.prev();
-        return *this;
+    int operator--(int) {
+        prev();
+        return current->data;
     };
 
 protected:

@@ -4,6 +4,8 @@
 
 #include "Iterator.h"
 
+Iterator::Iterator(List::Node *pNode, List::Node *pNode1) : current(pNode), previous(pNode1) {}
+
 /// \return Pointer to the current Node object.
 List::Node* Iterator::get() {
     return current;

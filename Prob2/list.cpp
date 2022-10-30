@@ -31,10 +31,6 @@ void List::frontInsert (int value) {
     Node *new_node;
 
     new_node = new Node;
-    if (new_node == nullptr) {
-        cout << "Unable to allocate memory. Insertion cancelled." << endl;
-        return;
-    }
     new_node->data = value;
     new_node->next = first;
     first = new_node;
@@ -45,10 +41,6 @@ void List::rearInsert (int value) {
     Node *new_node, *current;
 
     new_node = new Node;
-    if (new_node == nullptr) {
-        cout << "Unable to allocate memory. Insertion cancelled." << endl;
-        return;
-    }
     new_node->data = value;
     new_node->next = nullptr;
     last->next = new_node;
@@ -105,7 +97,7 @@ int List::length() const {
 }
 
 Iterator List::begin() {
-    return Iterator(first, (Node*) nullptr);
+    return {first, (Node*) nullptr};
 }
 
 Iterator List::end() {
@@ -113,11 +105,11 @@ Iterator List::end() {
     while(prev->next != nullptr)
         prev = prev->next;
     // This should work but isn't?
-    return Iterator(last, prev);
+    return {last, prev};
 }
 
 void List::insert(Iterator i, int value) {
-    Node* toInsert;
+    Node *toInsert;
     toInsert->data = value;
     toInsert->next = i.get();
 

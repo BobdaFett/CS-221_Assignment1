@@ -8,12 +8,13 @@
 
 #include <list>
 #include <iostream>
-#include "Iterator.h"
 using namespace std;
 
+class Iterator;
+
 class List {
+friend class Iterator;
 public:
-    friend class Iterator;
 
     List (); // constructor
     ~List (); // destructor
@@ -44,4 +45,4 @@ protected:
     Node* last;
 };
 
-#endif
+#endif //LIST_H
