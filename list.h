@@ -1,31 +1,42 @@
 // list.h
 //
-// This file is the specification for a class implementing a linked list of
-// integers.
+// This file is the specification for a class implementing a linked list of integers.
 //
-#include <iostream>
-using namespace std;
 
 #ifndef LIST_H
 #define LIST_H
 
-class List{
+#include <list>
+#include <iostream>
+#include "Iterator.h"
+using namespace std;
+
+class List {
 public:
-    List ();  // constructor
+    friend class Iterator;
+
+    List (); // constructor
     ~List (); // destructor
-    void frontInsert (int value);  // insert at front of list
-    void rearInsert (int value);   // insert at rear of list
+    void frontInsert (int value); // insert at front of list
+    void rearInsert (int value);  // insert at rear of list
 	int frontDelete();
 	int rearDelete();
     int rearDelete2();
-	int length() const;
+    int length() const;
 
-    friend ostream& operator<< (ostream& out, List& l);  // print the list
-    
+    Iterator begin();
+    Iterator end();
+
+    void insert(Iterator i, int value);
+    void del(Iterator i);
+
+    friend ostream& operator << (ostream& out, List& l); // print the list
+
+
 protected:
-    struct Node
-    {
-        int  data;
+
+    struct Node {
+        int data;
         Node *next;
     };
 

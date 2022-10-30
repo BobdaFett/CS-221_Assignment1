@@ -5,6 +5,7 @@
 #include <cassert>
 #include <iostream>
 #include "list.h"
+#include "Iterator.h"
 using namespace std;
 
 // Constructor
@@ -22,11 +23,11 @@ List::~List () {
         delete first;
         first = next_node;
     }
+    delete last;
 }
 
 // Insert at front of list
-void List::frontInsert (int value)
-{
+void List::frontInsert (int value) {
     Node *new_node;
 
     new_node = new Node;
@@ -40,8 +41,7 @@ void List::frontInsert (int value)
 }
 
 // Insert at rear of list
-void List::rearInsert (int value)
-{
+void List::rearInsert (int value) {
     Node *new_node, *current;
 
     new_node = new Node;
@@ -51,17 +51,11 @@ void List::rearInsert (int value)
     }
     new_node->data = value;
     new_node->next = nullptr;
-    if (first == nullptr)
-        first = new_node;
-    else {
-        current = first;
-        while (current->next != nullptr)
-			current = current->next;
-        current->next = new_node;
-    }
+    last->next = new_node;
+    last = new_node;
 }
 
-int List::frontDelete(){
+int List::frontDelete() {
 	assert(first != nullptr);
 	Node* temp = first;
 	int value = first->data;
@@ -70,7 +64,7 @@ int List::frontDelete(){
 	return value;
 }
 
-int List::rearDelete(){	
+int List::rearDelete() {
 	assert(first != nullptr);
 	int value;
 	if (first->next == nullptr) { // there is a single node in the list
@@ -80,7 +74,7 @@ int List::rearDelete(){
 	} else { // need to traverse the list
 		Node* current = first->next;
 		Node* previous = first;
-		while (current->next != nullptr){
+		while (current->next != nullptr) {
 			previous = current;
 			current = current->next;
 		}
@@ -98,37 +92,54 @@ int List::rearDelete2() {
     last = last->next;
     delete temp;
     return value;
-
-    // Create a value
-    // If there is a node in the list...
-        // Set the value
-        // Delete the node
-        // Set node to null
-    // Traverse the list
-        // Create temporary values
-        // iterate to last value
-        // set corresponding values
-    // Return the value
-
 }
 
-int List::length() const{
+int List::length() const {
 	int len = 0;
 	Node* current = first;
 	while (current != last){
 		len++;
 		current = current->next;
 	}
-	return len;		
+	return len;
+}
+
+Iterator List::begin() {
+    return Iterator(first, (Node*) nullptr);
+}
+
+Iterator List::end() {
+    Node *prev = first;
+    while(prev->next != nullptr)
+        prev = prev->next;
+    // This should work but isn't?
+    return Iterator(last, prev);
+}
+
+void List::insert(Iterator i, int value) {
+    Node* toInsert;
+    toInsert->data = value;
+    toInsert->next = i.get();
+
+    i++;
+    Node* prev = i.get();
+    prev->next = toInsert;
+    i.next(); // Sets iterator equal to value just inserted.
+}
+
+void List::del(Iterator i) {
+    Node* toDelete = i.get();
+    i--;
+    Node* current = i.get();
+    current->next = toDelete->next;
+    delete toDelete;
 }
 
 // Print the list
-ostream& operator<< (ostream& out, List& l)
-{
+ostream& operator << (ostream& out, List& l) {
 	List::Node* current = l.first;
 
-	while (current != nullptr)
-	{
+	while (current != nullptr) {
 		out << current->data << ' ';
 		current = current->next;
 	}
