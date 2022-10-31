@@ -1,39 +1,40 @@
 #include <iostream>
 #include <string>
+#include <queue>
 #include "bintree.h"
 using namespace std;
 
 BinarySearchTree::BinarySearchTree() {
-   root = NULL;
+   root = nullptr;
 }
 
 void BinarySearchTree::print() const {
-   if (root != NULL)
+   if (root != nullptr)
       root->print_nodes();
 }
 
 void BinarySearchTree::insert(string data) {
    TreeNode* new_node = new TreeNode;
    new_node->data = data;
-   new_node->left = NULL;
-   new_node->right = NULL;
-   if (root == NULL) root = new_node;
+   new_node->left = nullptr;
+   new_node->right = nullptr;
+   if (root == nullptr) root = new_node;
    else root->insert_node(new_node);
 }
 
 int BinarySearchTree::count(string data) const {
-   if (root == NULL) return 0;
+   if (root == nullptr) return 0;
    else if (root->find(data)) return 1;
    else return 0;
 }
 
-void BinarySearchTree::erase(string data) {
+void BinarySearchTree::erase(const string& data) {
    // Find node to be removed
 
    TreeNode* to_be_removed = root;
-   TreeNode* parent = NULL;
+   TreeNode* parent = nullptr;
    bool found = false;
-   while (!found && to_be_removed != NULL) {
+   while (!found && to_be_removed != nullptr) {
       if (to_be_removed->data < data) {
          parent = to_be_removed;
          to_be_removed = to_be_removed->right;
@@ -51,14 +52,14 @@ void BinarySearchTree::erase(string data) {
 
    // If one of the children is empty, use the other
 
-   if (to_be_removed->left == NULL || to_be_removed->right == NULL) {
+   if (to_be_removed->left == nullptr || to_be_removed->right == nullptr) {
       TreeNode* new_child;
-      if (to_be_removed->left == NULL) 
+      if (to_be_removed->left == nullptr)
          new_child = to_be_removed->right;
       else 
          new_child = to_be_removed->left;
       
-	  if (parent == NULL) // Found in root
+	  if (parent == nullptr) // Found in root
          root = new_child;
       else if (parent->left == to_be_removed)
          parent->left = new_child;
@@ -71,18 +72,31 @@ void BinarySearchTree::erase(string data) {
    // Find smallest element of the right subtree
    TreeNode* smallest_parent = to_be_removed;
    TreeNode* smallest = to_be_removed->right;
-   while (smallest->left != NULL) {
+   while (smallest->left != nullptr) {
       smallest_parent = smallest;
       smallest = smallest->left;
    }
 
    // smallest contains smallest child in right subtree
-       
+
    // Move contents, unlink child
    to_be_removed->data = smallest->data;
-   if (smallest_parent == to_be_removed) 
-      smallest_parent->right = smallest->right; 
-   else 
-      smallest_parent->left = smallest->right; 
+   if (smallest_parent == to_be_removed)
+      smallest_parent->right = smallest->right;
+   else
+      smallest_parent->left = smallest->right;
 }
- 
+
+void BinarySearchTree::printLevel(int level) {
+    if (level == 1) {
+        cout << root->data;
+    } else if (level == 2) {
+        cout << root->left->data << root->right->data;
+    } else { // if level > 2
+
+    }
+}
+
+void BinarySearchTree::printLevel(int level, TreeNode* node) {
+    
+}

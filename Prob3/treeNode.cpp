@@ -6,11 +6,11 @@ using namespace std;
 
 void TreeNode::insert_node(TreeNode* new_node) {
    if (new_node->data < data) {
-      if (left == NULL) left = new_node;
+      if (left == nullptr) left = new_node;
       else left->insert_node(new_node);
    }
    else if (data < new_node->data) {
-      if (right == NULL) right = new_node;
+      if (right == nullptr) right = new_node;
       else right->insert_node(new_node);
    }
 }
@@ -18,11 +18,11 @@ void TreeNode::insert_node(TreeNode* new_node) {
 
 bool TreeNode::find(string value) const {
    if (value < data) {
-      if (left == NULL) return false;
+      if (left == nullptr) return false;
       else return left->find(value);
    }
    else if (data < value) {
-      if (right == NULL) return false;
+      if (right == nullptr) return false;
       else return right->find(value);
    }
    else 
@@ -30,12 +30,10 @@ bool TreeNode::find(string value) const {
 }
 
 void TreeNode::print_nodes() const {
-   if (left != NULL)
+   if (left != nullptr)
 	   left->print_nodes();
    cout << data << "\n";
-   if (right != NULL)
+   if (right != nullptr)
       right->print_nodes();
-   
-   
 }
 
