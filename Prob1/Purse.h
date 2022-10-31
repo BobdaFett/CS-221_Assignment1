@@ -6,19 +6,40 @@
 #define CS_221_ASSIGNMENT1_PURSE_H
 
 #include <set>
+#include <iostream>
 
 class Purse {
 public:
-    typedef enum coinType {QUARTER, DIME, NICKEL, PENNY};
-    struct Coin;
-    Purse(const std::multiset<Coin>& ms);
+    typedef enum {QUARTER, DIME, NICKEL, PENNY} COIN_TYPE;
+    struct Coin {
+        COIN_TYPE coinType;
+        int value;
+        explicit Coin(COIN_TYPE coinType) : coinType(coinType) {
+            switch(coinType) {
+                case QUARTER:
+                    value = 25;
+                    break;
+                case DIME:
+                    value = 10;
+                    break;
+                case NICKEL:
+                    value = 5;
+                    break;
+                case PENNY:
+                    value = 1;
+                    break;
+            }
+        }
+    };
+
     void add(const std::multiset<Purse::Coin>& multiset);
+    void add(COIN_TYPE coinType);
     void pay(double amount);
-    double totalMoney() const { return totalAmount; };
-    int countPennies() const { return numPennies; };
-    int countNickels() const { return numNickels; };
-    int countDimes() const { return numDimes; };
-    int countQuarters() const { return numQuarters; };
+    [[nodiscard]] double totalMoney() const { return totalAmount; };
+    [[nodiscard]] int countPennies() const { return numPennies; };
+    [[nodiscard]] int countNickels() const { return numNickels; };
+    [[nodiscard]] int countDimes() const { return numDimes; };
+    [[nodiscard]] int countQuarters() const { return numQuarters; };
     void addQuarters(int numQuarters);
     void addDimes(int numDimes);
     void addNickels(int numNickels);
@@ -28,9 +49,11 @@ public:
     void remDimes(int numDimes);
     void remQuarters(int numQuarters);
 
+    friend std::ostream& operator<<(std::ostream& out, Purse purse);
+
 private:
-    double totalAmount{};
-    int numQuarters{}, numDimes{}, numNickels{}, numPennies{};
+    double totalAmount=0;
+    int numQuarters=0, numDimes=0, numNickels=0, numPennies=0;
 };
 
 

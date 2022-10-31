@@ -6,48 +6,39 @@
 
 #include <iostream>
 
-struct Purse::Coin {
-    using enum Purse::coinType;
-    coinType name;
-    double coinValue;
-    explicit Coin(coinType name) : name(name) {
-        switch (this->name) {
-            case QUARTER:
-                coinValue = .25;
-                break;
-            case DIME:
-                coinValue = .10;
-                break;
-            case NICKEL:
-                coinValue = .05;
-                break;
-            case PENNY:
-                coinValue = .01;
-                break;
-        }
-    }
-};
-
-Purse::Purse(const std::multiset<Coin>& ms) {
-    add(ms);
-}
-
 void Purse::add(const std::multiset<Coin>& multiset) {
     for (const auto & iter : multiset) {
-        switch (iter.name) {
-            case Coin::QUARTER:
+        switch (iter.coinType) {
+            case QUARTER:
                 addQuarters(1);
                 break;
-            case Coin::DIME:
+            case DIME:
                 addDimes(1);
                 break;
-            case Coin::NICKEL:
+            case NICKEL:
                 addNickels(1);
                 break;
-            case Coin::PENNY:
+            case PENNY:
                 addPennies(1);
                 break;
         }
+    }
+}
+
+void Purse::add(COIN_TYPE coinType) {
+    switch (coinType) {
+        case QUARTER:
+            addQuarters(1);
+            break;
+        case DIME:
+            addDimes(1);
+            break;
+        case NICKEL:
+            addNickels(1);
+            break;
+        case PENNY:
+            addPennies(1);
+            break;
     }
 }
 
@@ -89,31 +80,23 @@ void Purse::pay(double amount) {
 }
 
 void Purse::addQuarters(int numQuarters) {
-    for (numQuarters; numQuarters > 0; numQuarters--) {
-        Purse::numQuarters++;
-        Purse::totalAmount += .25;
-    }
+    this->numQuarters += numQuarters;
+    this->totalAmount += numQuarters * .25;
 }
 
 void Purse::addDimes(int numDimes) {
-    for (numDimes; numDimes > 0; numDimes--) {
-        Purse::numDimes++;
-        Purse::totalAmount += .25;
-    }
+    this->numDimes += numDimes;
+    this->totalAmount += numDimes * .1;
 }
 
 void Purse::addNickels(int numNickels) {
-    for (numNickels; numNickels > 0; numNickels--) {
-        Purse::numNickels++;
-        Purse::totalAmount += .25;
-    }
+    this->numNickels += numNickels;
+    this->totalAmount += numNickels * .05;
 }
 
 void Purse::addPennies(int numPennies) {
-    for (numPennies; numPennies > 0; numPennies--) {
-        Purse::numPennies++;
-        Purse::totalAmount += .25;
-    }
+    this->numPennies += numPennies;
+    this->totalAmount += .01 * numPennies;
 }
 
 void Purse::remPennies(int numPennies) {
@@ -142,4 +125,8 @@ void Purse::remQuarters(int numQuarters) {
         Purse::numQuarters--;
         Purse::totalAmount -= 0.25;
     }
+}
+
+std::ostream& operator<<(std::ostream& out, Purse purse) {
+    out << "Total value: $" << purse.totalAmount << std::endl;
 }

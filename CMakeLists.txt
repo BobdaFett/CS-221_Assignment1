@@ -18,4 +18,4 @@ file(GLOB Prob3
         "Prob3/*.cpp"
         )
 
-add_executable(CS-221_Assignment1 ${Prob3})
+add_executable(CS-221_Assignment1 ${Prob1})
