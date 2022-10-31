@@ -50,6 +50,7 @@ public:
     void remQuarters(int numQuarters);
 
     friend std::ostream& operator<<(std::ostream& out, Purse purse);
+    bool operator<(Purse purse) const { return (this->totalMoney() < purse.totalMoney()); };
 
 private:
     double totalAmount=0;

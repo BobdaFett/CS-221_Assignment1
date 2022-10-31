@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <vector>
 #include "Purse.h"
 using namespace std;
 using Coin = Purse::Coin;
@@ -33,14 +34,16 @@ int main() {
     // Create the arrays to sort
     Purse quarters[3] = {lessQuarters, moreQuarters, midQuarters};
     Purse dimes[3] = {lessQuarters, moreQuarters, midQuarters};
+    std::vector<Purse> byTotal (quarters, quarters+3);
 
-//    cout << "more: " << moreQuarters;
-//    cout << "less: " << lessQuarters;
-//    cout << "mid: " << midQuarters;
+    cout << "more: " << moreQuarters;
+    cout << "less: " << lessQuarters;
+    cout << "mid: " << midQuarters;
 
     // Sort arrays by order of quarters and order of dimes
     qsort(quarters, 3, sizeof(Purse), compareQuarters);
     qsort(dimes, 3, sizeof(Purse), compareDimes);
+    sort(byTotal.begin(), byTotal.end());
 
     // Print contents of Purse objects.
     for (Purse p : quarters)
@@ -48,6 +51,9 @@ int main() {
     cout << "\n";
     for (Purse p : dimes)
         cout << p.countDimes() << " ";
+    cout << "\n";
+    for (Purse p : byTotal)
+        cout << p.totalMoney() << " ";
 
     return 0;
 }
