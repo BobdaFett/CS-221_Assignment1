@@ -69,7 +69,7 @@ void BinarySearchTree::erase(const string& data) {
    }
       
    // Neither subtree is empty
-   // Find smallest element of the right subtree
+   // Find the smallest element of the right subtree
    TreeNode* smallest_parent = to_be_removed;
    TreeNode* smallest = to_be_removed->right;
    while (smallest->left != nullptr) {
@@ -77,7 +77,7 @@ void BinarySearchTree::erase(const string& data) {
       smallest = smallest->left;
    }
 
-   // smallest contains smallest child in right subtree
+   // smallest contains the smallest child in right subtree
 
    // Move contents, unlink child
    to_be_removed->data = smallest->data;
@@ -88,15 +88,23 @@ void BinarySearchTree::erase(const string& data) {
 }
 
 void BinarySearchTree::printLevel(int level) {
-    if (level == 1) {
-        cout << root->data;
-    } else if (level == 2) {
-        cout << root->left->data << root->right->data;
-    } else { // if level > 2
-
-    }
+    printLevel(level, root);
 }
 
 void BinarySearchTree::printLevel(int level, TreeNode* node) {
-    
+    if (level == 1) {
+        cout << node->data << " ";
+    } else {
+        if (node->right != nullptr)
+            printLevel(level - 1, node->right);
+        if (node->left != nullptr)
+            printLevel(level - 1, node->left);
+    }
+}
+
+void BinarySearchTree::postorder(DerivedAction *a) {
+    if (root != nullptr) {
+        a->act(root->left);
+        a->act(root->right);
+    }
 }

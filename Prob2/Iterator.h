@@ -13,8 +13,8 @@ class Iterator {
 public:
     Iterator(List::Node *current, List::Node *previous);
 
-    /// @returns A pointer to the current Node object.
-    List::Node* get();
+    /// @returns The data within the current node object.
+    int get();
 
     /// Moves iterator to the next linked Node object.
     void next();
@@ -26,15 +26,18 @@ public:
      * Determines if two Nodes are equivalent.
      * @returns True if the Nodes are the same.
      */
-    bool equals(List::Node a, List::Node b);
+    bool equals(Iterator a, Iterator b);
 
-    int operator++(int) {
+    friend void insert(Iterator i, int value);
+    friend void del(Iterator i);
+
+    List::Node* operator++(int) {
         next();
-        return current->data;
+        return current;
     };
-    int operator--(int) {
+    List::Node* operator--(int) {
         prev();
-        return current->data;
+        return current;
     };
 
 protected:

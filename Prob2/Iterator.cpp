@@ -6,8 +6,8 @@
 
 Iterator::Iterator(List::Node *current, List::Node *previous) : current(current), previous(previous) {}
 
-List::Node* Iterator::get() {
-    return current;
+int Iterator::get() {
+    return current->data;
 }
 
 void Iterator::next() {
@@ -18,6 +18,6 @@ void Iterator::prev() {
     this->current = this->previous;
 }
 
-bool Iterator::equals(List::Node a, List::Node b) {
-    // Determine if a and b are equivalent
+bool Iterator::equals(Iterator a, Iterator b) {
+    return (a.current == b.current);
 }

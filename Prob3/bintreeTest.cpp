@@ -24,5 +24,9 @@ int main() {
    t.print();
    cout << t.count("E") << "\n";
    cout << t.count("F") << "\n";
+
+   int level = 4;
+   cout << "Printing level " << level << ": ";
+   t.printLevel(level);
    return 0;
 }

@@ -6,7 +6,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <list>
 #include <iostream>
 using namespace std;
 
@@ -16,14 +15,14 @@ class List {
 friend class Iterator;
 public:
 
-    List() : first(nullptr), last(nullptr) {} // constructor
-    ~List(); // destructor
+    List() : first(nullptr), last(nullptr) {}
+    ~List();
 
     /**
      * Insert a value at the front of the list.
      * @param value The value to insert.
      */
-    void frontInsert(int value); // insert at front of list
+    void frontInsert(int value);
 
     /**
      * Insert value at the end of the list.
@@ -43,9 +42,6 @@ public:
      */
 	int rearDelete();
 
-    /// Member function that is currently holding the code from the original function.
-    int rearDelete2();
-
     /// @return The length of the list.
     int length() const;
 
@@ -60,15 +56,19 @@ public:
      * @param i The Iterator.
      * @param value The value to insert.
      */
-    void insert(Iterator i, int value);
+    friend void insert(Iterator i, int value);
 
     /**
      * Delete a value at a point specified by an Iterator.
      * @param i The Iterator.
      */
-    void del(Iterator i);
+    friend void del(Iterator i);
 
-    friend ostream& operator<<(ostream& out, List& l); // print the list
+    /**
+     * Prints the list.
+     * @return An ostream object that contains the information about the List.
+     */
+    friend ostream& operator<<(ostream& out, List& l);
 
 
 protected:

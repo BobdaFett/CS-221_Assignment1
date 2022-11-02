@@ -3,7 +3,6 @@
 #include "treeNode.h"
 using namespace std;
 
-
 void TreeNode::insert_node(TreeNode* new_node) {
    if (new_node->data < data) {
       if (left == nullptr) left = new_node;
@@ -14,7 +13,6 @@ void TreeNode::insert_node(TreeNode* new_node) {
       else right->insert_node(new_node);
    }
 }
-
 
 bool TreeNode::find(string value) const {
    if (value < data) {
@@ -36,4 +34,3 @@ void TreeNode::print_nodes() const {
    if (right != nullptr)
       right->print_nodes();
 }
-

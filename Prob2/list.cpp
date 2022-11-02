@@ -74,15 +74,6 @@ int List::rearDelete() {
 	return value;
 }
 
-int List::rearDelete2() {
-    assert(last != nullptr);
-    Node* temp = last;
-    int value = last->data;
-    last = last->next;
-    delete temp;
-    return value;
-}
-
 int List::length() const {
 	int len = 0;
 	Node* current = first;
@@ -93,35 +84,21 @@ int List::length() const {
 	return len;
 }
 
-Iterator List::begin() {
-    return {first, (Node*) nullptr};
-}
+Iterator List::begin() { return {first, nullptr}; }
 
-Iterator List::end() {
-    Node *prev = first;
-    while(prev->next != nullptr)
-        prev = prev->next;
-    // This should work but isn't?
-    return {last, prev};
-}
+Iterator List::end() { return {nullptr, last}; }
 
-void List::insert(Iterator i, int value) {
-    Node *toInsert;
+void insert(Iterator i, int value) {
+    List::Node* toInsert = nullptr;
     toInsert->data = value;
-    toInsert->next = i.get();
-
-    i++;
-    Node* prev = i.get();
-    prev->next = toInsert;
-    i.next(); // Sets iterator equal to value just inserted.
+    toInsert->next = i.current;
+    i.previous = toInsert;
 }
 
-void List::del(Iterator i) {
-    Node* toDelete = i.get();
-    i--;
-    Node* current = i.get();
-    current->next = toDelete->next;
-    delete toDelete;
+void del(Iterator i) {
+    List::Node* temp = i.current;
+    i.current = i++;
+    delete temp;
 }
 
 // Print the list

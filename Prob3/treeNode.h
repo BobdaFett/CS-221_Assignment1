@@ -5,6 +5,7 @@
 using namespace std;
 
 class TreeNode {
+friend class DerivedAction;
 public:
    void insert_node(TreeNode* new_node);
    void print_nodes() const;
